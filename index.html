@@ -17,8 +17,30 @@
     </header>
 
     <main id="main-content">
-      <h2>My Tasks</h2>
-      <p>Your task list will appear here.</p>
+      <section aria-labelledby="task-form-heading">
+        <h2 id="task-form-heading">Add a task</h2>
+
+        <form id="task-form">
+          <label for="task-title">Task title</label>
+          <input
+            id="task-title"
+            name="title"
+            type="text"
+            placeholder="e.g. Learn JavaScript"
+            maxlength="120"
+            required
+          />
+          <button type="submit">Add task</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="task-list-heading">
+        <h2 id="task-list-heading">My Tasks</h2>
+
+        <ul id="task-list" aria-live="polite">
+          <li id="empty-state">No tasks yet. Add your first task above.</li>
+        </ul>
+      </section>
     </main>
   </body>
 </html>
