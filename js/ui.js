@@ -20,6 +20,7 @@ export function renderTasks() {
     const checkbox = document.createElement("input");
     const label = document.createElement("label");
     const deleteButton = document.createElement("button");
+    const editButton = document.createElement("button");
 
     // Configure the completion checkbox.
     checkbox.type = "checkbox";
@@ -43,8 +44,15 @@ export function renderTasks() {
     deleteButton.dataset.taskId = task.id;
     deleteButton.setAttribute("aria-label", `Delete ${task.title}`);
 
+    // Configure the Edit button.
+    editButton.type = "button";
+    editButton.textContent = "Edit";
+    editButton.dataset.action = "edit";
+    editButton.dataset.taskId = task.id;
+    editButton.setAttribute("aria-label", `Edit ${task.title}`);
+
     // Add the task elements to the list item.
-    listItem.append(checkbox, label, deleteButton);
+    listItem.append(checkbox, label, editButton, deleteButton);
     taskList.append(listItem);
   }
 }

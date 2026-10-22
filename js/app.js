@@ -1,4 +1,4 @@
-import { addTask, toggleTask, deleteTask } from "./state.js";
+import { addTask, toggleTask, deleteTask, updateTask, tasks } from "./state.js";
 import { renderTasks } from "./ui.js";
 
 const taskForm = document.querySelector("#task-form");
@@ -43,4 +43,30 @@ taskList.addEventListener("click", (event) => {
 
   deleteTask(taskId);
   renderTasks();
+});
+taskList.addEventListener("click", (event) => {
+  const editButton = event.target.closest('button[data-action="edit"]');
+
+  if (!editButton || !taskList.contains(editButton)) {
+    return;
+  }
+
+  const taskId = editButton.dataset.taskId;
+  const task = tasks.find((task) => task.id === taskId);
+
+  if (!task) {
+    return;
+  }
+
+  const newTitle = prompt("Edit task title:", task.title);
+
+  if (newTitle === null) {
+    return;
+  }
+
+  if (updateTask(taskId, newTitle)) {
+    renderTasks();
+  } else {
+    alert("Task title cannot be empty.");
+  }
 });

@@ -37,3 +37,21 @@ export function deleteTask(id) {
 
   return true;
 }
+export function updateTask(id, newTitle) {
+  const task = tasks.find((task) => task.id === id);
+
+  if (!task) {
+    return false;
+  }
+
+  const trimmedTitle = newTitle.trim();
+
+  if (!trimmedTitle) {
+    return false;
+  }
+
+  task.title = trimmedTitle;
+  task.updatedAt = new Date().toISOString();
+
+  return true;
+}
