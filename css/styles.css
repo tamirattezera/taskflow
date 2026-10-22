@@ -1,0 +1,97 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  --color-page: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-accent: #4f46e5;
+
+  --radius-card: 12px;
+  --content-width: 760px;
+}
+
+/* 2. Predictable element sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 3. Page defaults */
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 48px 24px;
+
+  background: var(--color-page);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* 4. Shared content width */
+header,
+main {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+/* 5. Header */
+header {
+  margin-bottom: 32px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+header p,
+main p {
+  color: var(--color-muted);
+}
+
+header p {
+  margin-bottom: 0;
+}
+
+/* 6. Main content surface */
+main {
+  padding: 28px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+main p {
+  margin-bottom: 0;
+}
+
+/* 7. Small-screen adjustments */
+@media (max-width: 480px) {
+  body {
+    padding: 28px 16px;
+  }
+
+  main {
+    padding: 20px;
+  }
+}
