@@ -17,9 +17,22 @@ export function renderTasks() {
 
   for (const task of tasks) {
     const listItem = document.createElement("li");
+    const checkbox = document.createElement("input");
+    const label = document.createElement("label");
 
-    listItem.textContent = task.title;
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    checkbox.id = `task-${task.id}`;
 
+    label.htmlFor = checkbox.id;
+    label.textContent = task.title;
+
+    if (task.completed) {
+      label.style.textDecoration = "line-through";
+      label.style.color = "var(--color-muted)";
+    }
+
+    listItem.append(checkbox, label);
     taskList.append(listItem);
   }
 }

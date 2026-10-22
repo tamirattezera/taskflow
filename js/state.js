@@ -13,3 +13,16 @@ export function addTask(title) {
 
   return task;
 }
+
+export function toggleTask(id) {
+  const task = tasks.find((task) => task.id === id);
+
+  if (!task) {
+    return false;
+  }
+
+  task.completed = !task.completed;
+  task.updatedAt = new Date().toISOString();
+
+  return true;
+}
