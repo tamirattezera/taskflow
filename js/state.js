@@ -26,3 +26,14 @@ export function toggleTask(id) {
 
   return true;
 }
+export function deleteTask(id) {
+  const taskIndex = tasks.findIndex((task) => task.id === id);
+
+  if (taskIndex === -1) {
+    return false;
+  }
+
+  tasks.splice(taskIndex, 1);
+
+  return true;
+}

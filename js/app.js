@@ -1,4 +1,4 @@
-import { addTask, toggleTask } from "./state.js";
+import { addTask, toggleTask, deleteTask } from "./state.js";
 import { renderTasks } from "./ui.js";
 
 const taskForm = document.querySelector("#task-form");
@@ -29,5 +29,18 @@ taskList.addEventListener("change", (event) => {
   const taskId = event.target.id.replace("task-", "");
 
   toggleTask(taskId);
+  renderTasks();
+});
+
+taskList.addEventListener("click", (event) => {
+  const deleteButton = event.target.closest('button[data-action="delete"]');
+
+  if (!deleteButton || !taskList.contains(deleteButton)) {
+    return;
+  }
+
+  const taskId = deleteButton.dataset.taskId;
+
+  deleteTask(taskId);
   renderTasks();
 });
