@@ -46,9 +46,14 @@ taskForm.addEventListener("submit", (event) => {
     return;
   }
 
-  addTask(title);
-  updateTaskView();
+  const createdTask = addTask(title);
 
+  if (!createdTask) {
+    alert("Unable to save your task. Please try again.");
+    return;
+  }
+
+  updateTaskView();
   taskForm.reset();
   taskTitleInput.focus();
 });

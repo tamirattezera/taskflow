@@ -40,17 +40,28 @@ function saveTasks() {
   }
 }
 
+
 export function addTask(title) {
+  const trimmedTitle = title.trim();
+
+  if (!trimmedTitle) {
+    return null;
+  }
+
   const task = {
     id: crypto.randomUUID(),
-    title: title.trim(),
+    title: trimmedTitle,
     completed: false,
     createdAt: new Date().toISOString(),
     updatedAt: null,
   };
 
   tasks.push(task);
-  saveTasks();
+
+  if (!saveTasks()) {
+    tasks.pop();
+    return null;
+  }
 
   return task;
 }
