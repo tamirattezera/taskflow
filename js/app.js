@@ -78,7 +78,12 @@ taskList.addEventListener("click", (event) => {
 
   const taskId = deleteButton.dataset.taskId;
 
-  deleteTask(taskId);
+  if (!deleteTask(taskId)) {
+    alert("Unable to delete the task. Please try again.");
+    updateTaskView();
+    return;
+  }
+
   updateTaskView();
 });
 

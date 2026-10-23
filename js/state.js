@@ -94,11 +94,16 @@ export function deleteTask(id) {
     return false;
   }
 
-  tasks.splice(taskIndex, 1);
+  const [deletedTask] = tasks.splice(taskIndex, 1);
 
-  saveTasks();
+  if (!saveTasks()) {
+    tasks.splice(taskIndex, 0, deletedTask);
+    return false;
+  }
+
   return true;
 }
+
 export function updateTask(id, newTitle) {
   const task = tasks.find((task) => task.id === id);
 
