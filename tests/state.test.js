@@ -171,3 +171,51 @@ test("does not change the stored title after an invalid edit", () => {
   assert.equal(savedTasks.length, 1);
   assert.equal(savedTasks[0].title, "Valid title");
 });
+
+test("starts with an empty task list when storage is empty", async () => {
+  storage.clear();
+
+  const moduleUrl = new URL("../js/state.js", import.meta.url);
+  moduleUrl.searchParams.set("testRun", String(Math.random()));
+
+  const freshState = await import(moduleUrl.href);
+
+  assert.deepEqual(freshState.tasks, []);
+});
+
+test("recovers from corrupted JSON in localStorage", async () => {
+  storage.set(STORAGE_KEY, "{invalid json");
+
+  const moduleUrl = new URL("../js/state.js", import.meta.url);
+  moduleUrl.searchParams.set("testRun", String(Math.random()));
+
+  const freshState = await import(moduleUrl.href);
+
+  assert.deepEqual(freshState.tasks, []);
+});
+
+test("ignores invalid task entries when loading stored data", async () => {
+  storage.set(
+    STORAGE_KEY,
+    JSON.stringify([
+      {
+        id: "valid-1",
+        title: "Valid task",
+        completed: false,
+      },
+      null,
+      { id: 123, title: "Invalid ID", completed: false },
+      { id: "valid-2", title: "Invalid completion", completed: "no" },
+      { id: "valid-3", title: 123, completed: false },
+    ]),
+  );
+
+  const moduleUrl = new URL("../js/state.js", import.meta.url);
+  moduleUrl.searchParams.set("testRun", String(Math.random()));
+
+  const freshState = await import(moduleUrl.href);
+
+  assert.equal(freshState.tasks.length, 1);
+  assert.equal(freshState.tasks[0].id, "valid-1");
+  assert.equal(freshState.tasks[0].title, "Valid task");
+});
