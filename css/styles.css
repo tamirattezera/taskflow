@@ -182,3 +182,139 @@ main p {
     transition: none;
   }
 }
+/* 13. Task filter controls */
+nav[aria-label="Filter tasks"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+nav[aria-label="Filter tasks"] button {
+  min-height: 40px;
+  padding: 8px 16px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+nav[aria-label="Filter tasks"] button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+nav[aria-label="Filter tasks"] button[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+nav[aria-label="Filter tasks"] button:focus-visible {
+  outline: 3px solid rgb(79 70 229 / 25%);
+  outline-offset: 3px;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  nav[aria-label="Filter tasks"] button {
+    transition: none;
+  }
+}
+
+/* 14. Task row layout */
+#task-list > li:not(#empty-state) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+
+  transition: border-color 150ms ease;
+}
+
+#task-list > li:not(#empty-state):hover {
+  border-color: #c7d2fe;
+}
+
+/* 15. Task completion control */
+#task-list input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+/* 16. Task title */
+#task-list label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+/* 17. Task action buttons */
+#task-list button[data-action] {
+  min-height: 36px;
+  padding: 7px 12px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 7px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+/* Edit button */
+#task-list button[data-action="edit"]:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Delete button */
+#task-list button[data-action="delete"] {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+#task-list button[data-action="delete"]:hover {
+  border-color: #b91c1c;
+  background: #fef2f2;
+}
+
+/* 18. Visible keyboard focus */
+#task-list input[type="checkbox"]:focus-visible,
+#task-list button[data-action]:focus-visible {
+  outline: 3px solid rgb(79 70 229 / 25%);
+  outline-offset: 3px;
+}
+
+/* 19. Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #task-list > li:not(#empty-state),
+  #task-list button[data-action] {
+    transition: none;
+  }
+}
