@@ -70,3 +70,4 @@ taskList.addEventListener("click", (event) => {
     alert("Task title cannot be empty.");
   }
 });
+renderTasks();
