@@ -117,9 +117,17 @@ export function updateTask(id, newTitle) {
     return false;
   }
 
+  const previousTitle = task.title;
+  const previousUpdatedAt = task.updatedAt;
+
   task.title = trimmedTitle;
   task.updatedAt = new Date().toISOString();
 
-  saveTasks();
+  if (!saveTasks()) {
+    task.title = previousTitle;
+    task.updatedAt = previousUpdatedAt;
+    return false;
+  }
+
   return true;
 }

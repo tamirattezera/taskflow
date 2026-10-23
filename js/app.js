@@ -107,11 +107,18 @@ taskList.addEventListener("click", (event) => {
     return;
   }
 
-  if (updateTask(taskId, newTitle)) {
-    updateTaskView();
-  } else {
+  if (!newTitle.trim()) {
     alert("Task title cannot be empty.");
+    return;
   }
+
+  if (!updateTask(taskId, newTitle)) {
+    alert("Unable to save the task changes. Please try again.");
+    updateTaskView();
+    return;
+  }
+
+  updateTaskView();
 });
 
 updateTaskView();
