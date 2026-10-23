@@ -40,7 +40,6 @@ function saveTasks() {
   }
 }
 
-
 export function addTask(title) {
   const trimmedTitle = title.trim();
 
@@ -73,12 +72,21 @@ export function toggleTask(id) {
     return false;
   }
 
+  const previousCompleted = task.completed;
+  const previousUpdatedAt = task.updatedAt;
+
   task.completed = !task.completed;
   task.updatedAt = new Date().toISOString();
 
-  saveTasks();
+  if (!saveTasks()) {
+    task.completed = previousCompleted;
+    task.updatedAt = previousUpdatedAt;
+    return false;
+  }
+
   return true;
 }
+
 export function deleteTask(id) {
   const taskIndex = tasks.findIndex((task) => task.id === id);
 
