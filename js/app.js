@@ -4,6 +4,37 @@ import { renderTasks } from "./ui.js";
 const taskForm = document.querySelector("#task-form");
 const taskTitleInput = document.querySelector("#task-title");
 const taskList = document.querySelector("#task-list");
+const taskFilters = document.querySelector("nav[aria-label='Filter tasks']");
+
+let currentFilter = "all";
+
+function updateTaskView() {
+  let visibleTasks = tasks;
+
+  if (currentFilter === "active") {
+    visibleTasks = tasks.filter((task) => !task.completed);
+  } else if (currentFilter === "completed") {
+    visibleTasks = tasks.filter((task) => task.completed);
+  }
+
+  renderTasks(visibleTasks);
+}
+
+taskFilters.addEventListener("click", (event) => {
+  const filterButton = event.target.closest("button[data-filter]");
+
+  if (!filterButton || !taskFilters.contains(filterButton)) {
+    return;
+  }
+
+  currentFilter = filterButton.dataset.filter;
+
+  for (const button of taskFilters.querySelectorAll("button[data-filter]")) {
+    button.setAttribute("aria-pressed", String(button === filterButton));
+  }
+
+  updateTaskView();
+});
 
 taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -16,11 +47,12 @@ taskForm.addEventListener("submit", (event) => {
   }
 
   addTask(title);
-  renderTasks();
+  updateTaskView();
 
   taskForm.reset();
   taskTitleInput.focus();
 });
+
 taskList.addEventListener("change", (event) => {
   if (event.target.type !== "checkbox") {
     return;
@@ -29,7 +61,7 @@ taskList.addEventListener("change", (event) => {
   const taskId = event.target.id.replace("task-", "");
 
   toggleTask(taskId);
-  renderTasks();
+  updateTaskView();
 });
 
 taskList.addEventListener("click", (event) => {
@@ -42,8 +74,9 @@ taskList.addEventListener("click", (event) => {
   const taskId = deleteButton.dataset.taskId;
 
   deleteTask(taskId);
-  renderTasks();
+  updateTaskView();
 });
+
 taskList.addEventListener("click", (event) => {
   const editButton = event.target.closest('button[data-action="edit"]');
 
@@ -65,9 +98,10 @@ taskList.addEventListener("click", (event) => {
   }
 
   if (updateTask(taskId, newTitle)) {
-    renderTasks();
+    updateTaskView();
   } else {
     alert("Task title cannot be empty.");
   }
 });
-renderTasks();
+
+updateTaskView();

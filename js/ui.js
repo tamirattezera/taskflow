@@ -1,11 +1,9 @@
-import { tasks } from "./state.js";
-
 const taskList = document.querySelector("#task-list");
 
-export function renderTasks() {
+export function renderTasks(visibleTasks) {
   taskList.replaceChildren();
 
-  if (tasks.length === 0) {
+  if (visibleTasks.length === 0) {
     const emptyState = document.createElement("li");
 
     emptyState.id = "empty-state";
@@ -15,7 +13,7 @@ export function renderTasks() {
     return;
   }
 
-  for (const task of tasks) {
+  for (const task of visibleTasks) {
     const listItem = document.createElement("li");
     const checkbox = document.createElement("input");
     const label = document.createElement("label");

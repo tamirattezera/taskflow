@@ -37,6 +37,20 @@
       <section aria-labelledby="task-list-heading">
         <h2 id="task-list-heading">My Tasks</h2>
 
+        <nav aria-label="Filter tasks">
+          <button type="button" data-filter="all" aria-pressed="true">
+            All
+          </button>
+
+          <button type="button" data-filter="active" aria-pressed="false">
+            Active
+          </button>
+
+          <button type="button" data-filter="completed" aria-pressed="false">
+            Completed
+          </button>
+        </nav>
+
         <ul id="task-list" aria-live="polite">
           <li id="empty-state">No tasks yet. Add your first task above.</li>
         </ul>
